@@ -1,11 +1,11 @@
 {
-    "name": "exabytes/sms-notifications",
+    "name": "premgthb/exabytes-sms",
     "description": "Laravel package for generating SMS using Exabytes API",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "prem-inv",
+            "name": "premgthb",
             "email": "prem@invokeisdata.com",
             "role": "Developer"
         }
