@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Facade;
 
 class Exabytes extends Facade
 {
-    protected static function getFacadeAccessor()
-    {
-        return 'exabytes';
-    }
+    // protected static function getFacadeAccessor()
+    // {
+    //     return 'exabytes';
+    // }
 }

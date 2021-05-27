@@ -1,13 +1,13 @@
 <?php
 
-namespace Exabytes\SmsNotifications;
+namespace Premgthb\ExabytesSms;
 
 use Illuminate\Support\Facades\Facade;
 
 class ExabytesFacade extends Facade
 {
-    /* protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor()
     {
         return 'exabytes';
-    } */
+    }
 }

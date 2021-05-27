@@ -1,9 +1,10 @@
 <?php
 
-namespace Exabytes\SmsNotifications\Tests;
+namespace Premgthb\ExabytesSms\Tests;
 
-use Exabytes\SmsNotifications\Facades\Exabytes;
-use Exabytes\SmsNotifications\Tests\TestCase;
+use Premgthb\ExabytesSms\Exabytes;
+use Premgthb\ExabytesSms\ExabytesFacade;
+use Premgthb\ExabytesSms\Tests\TestCase;
 
 class ExabytesSmsTest extends TestCase
 {
@@ -18,7 +19,7 @@ class ExabytesSmsTest extends TestCase
             'message' => 'Verification code 011222'
         ];
 
-        $response = Exabytes::sendMessage($data);
+        $response = ExabytesFacade::sendMessage($data);
         
 
         $this->assertEquals($response, 'https://smsportal.exabytes.my/isms_send.php?un=exabytes&pwd=exabytes123&dstno=0123334444&msg=Verification+code+011222&type=1&sender_id=60000&agreedterm=YES');

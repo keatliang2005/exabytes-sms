@@ -1,8 +1,8 @@
 <?php
 
-namespace Exabytes\SmsNotifications\Tests;
+namespace Premgthb\ExabytesSms\Tests;
 
-use Exabytes\SmsNotifications\ExabytesServiceProvider;
+use Premgthb\ExabytesSms\ExabytesServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

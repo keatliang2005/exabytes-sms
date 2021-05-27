@@ -14,8 +14,8 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Exabytes\\SmsNotifications\\": "src/",
-            "Exabytes\\SmsNotifications\\Tests\\": "tests/"
+            "Premgthb\\ExabytesSms\\": "src/",
+            "Premgthb\\ExabytesSms\\Tests\\": "tests/"
         }
     },
     "require": {
@@ -30,8 +30,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Exabytes\\SmsNotifications\\ExabytesServiceProvider"
-            ]
+                "Premgthb\\ExabytesSms\\ExabytesServiceProvider"
+            ],
+            "aliases": {
+                "Exabytes": "Premgthb\\ExabytesSms\\ExabytesFacade"
+            }
         }
     }
 }
