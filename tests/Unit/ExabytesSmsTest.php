@@ -2,8 +2,11 @@
 
 namespace Premgthb\ExabytesSms\Tests;
 
+use App\Notifications\ExabytesSmsNotification as NotificationsExabytesSmsNotification;
+use Illuminate\Support\Facades\Notification;
 use Premgthb\ExabytesSms\Exabytes;
 use Premgthb\ExabytesSms\ExabytesFacade;
+use Premgthb\ExabytesSms\Notifications\ExabytesSmsNotification;
 use Premgthb\ExabytesSms\Tests\TestCase;
 
 class ExabytesSmsTest extends TestCase
@@ -19,9 +22,11 @@ class ExabytesSmsTest extends TestCase
             'message' => 'Verification code 011222'
         ];
 
-        $response = ExabytesFacade::sendMessage($data);
+        $content = 'ABC';
+
+        Notification::route('Exabytes', '0149322248')->notify(new ExabytesSmsNotification($content));
         
 
-        $this->assertEquals($response, 'https://smsportal.exabytes.my/isms_send.php?un=exabytes&pwd=exabytes123&dstno=0123334444&msg=Verification+code+011222&type=1&sender_id=60000&agreedterm=YES');
+        $this->assertEquals($content, 'ggg');
     }
 }

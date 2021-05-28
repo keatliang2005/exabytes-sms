@@ -1,43 +1,19 @@
 <?php
 
-namespace Premgthb\ExabytesSms;
+namespace Premgthb\ExabytesSms\Notifications;
 
-use Exception;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Http;
 
-class Exabytes
+class ExabytesSmsChannel
 {
-    /**
-     * Generate OTP function
-     */
-    public function generateOtp()
+    public function send($notifiable, Notification $notification)
     {
-        $otp = sprintf("%04d", mt_rand(0, 9999));
-
-        return $otp;
-    }
-
-    /**
-     * Retrieve message
-     */
-    public function message($message)
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-
-    /**
-     * Send message function
-     */
-    public function sendMessage($data)
-    {
-
+        // to ensure exabyte credit only be used at staging and production
         if (app()->environment('production') || app()->environment('staging')) {
-
-            $message = $data['message'];
-            $to = $data['to'];
+            
+            $message = $notification->toExabytes($notifiable);
+            $to = $notifiable->routeNotificationFor('exabytes');
 
             $response = Http::get('https://smsportal.exabytes.my/isms_send.php', [
                 'un' => env('EXABYTES_SMS_USERNAME'),
@@ -51,9 +27,6 @@ class Exabytes
             if ($response->body() === '-1004 = INSUFFICIENT CREDITS') {
                 Bugsnag::notifyError('Exabyte SMS Endpoint Failure', 'Error Code: ' . $response->getStatusCode() . ',Message: ' . $response->body());
             }
-
-            return response()->json(['message' => 'SMS sent successfully to' . $data['dstno']], 200);
         }
- 
     }
 }

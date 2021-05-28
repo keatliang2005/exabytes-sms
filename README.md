@@ -5,18 +5,72 @@
 ```env
 EXABYTES_USERNAME = your account username
 EXABYTES_PASSWORD = your account password
-EXABYTES_SENDER_ID = your sender id 
 ```
 
+Set up Notification class in your Laravel application using
+```terminal
+php artisan make:notification ExabytesSmsNotification
+```
+and copy the code as follows
 
-Call method:
 ```php
-Exabytes::sendMessage($data);
+<?php
+
+namespace App\Notifications;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
+use Premgthb\ExabytesSms\Notifications\ExabytesSmsChannel;
+
+class ExabytesSmsNotification extends Notification
+{
+    use Queueable;
+
+    public $content;
+
+    public function __construct($message)
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * Get the notification's delivery channels.
+     */
+    public function via($notifiable)
+    {
+        return [ExabytesSmsChannel::class];
+    }
+
+     /** 
+      * Get SMS Message content 
+      */
+    public function toExabytes($notifiable)
+    {
+       return $this->message;
+    }
+}
 ```
 
-Parameters for $data:
+Finally use the following snippet in your controllers to trigger the Notification
+```php
+Notification::route('exabytes', $mobileNumber)->notify(new ExabytesSmsNotification($yourMessage));
 ```
+You are good to go!
+
+# ADDITIONAL
+To generate 4 digit OTP code, in your controller:
+```php
+
+use Exabytes;
+
+$otp = Exabytes::generateOtp();
+```
+
+To Send SMS without Queue:
+```php
 $data = [ 'to' => $request->mobile_number , 'msg' => $request->message ]
+
+Exabytes::sendMessage($data);
 ```
 
 
