@@ -15,7 +15,8 @@
     "autoload": {
         "psr-4": {
             "Premgthb\\ExabytesSms\\": "src/",
-            "Premgthb\\ExabytesSms\\Tests\\": "tests/"
+            "Premgthb\\ExabytesSms\\Tests\\": "tests/",
+            "Premgthb\\ExabytesSms\\Notifications\\": "notifications/"
         }
     },
     "require": {
