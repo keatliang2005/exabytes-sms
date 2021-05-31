@@ -1,10 +1,15 @@
+# INSTALLATION
+```code
+composer require premgthb/exabytes-sms
+```
+
 # USAGE
 
 .env Values:
 
 ```env
-EXABYTES_USERNAME = your account username
-EXABYTES_PASSWORD = your account password
+EXABYTES_SMS_USERNAME = Your account username
+EXABYTES_SMS_PASSWORD = Your account password
 ```
 
 Set up Notification class in your Laravel application using
@@ -56,10 +61,10 @@ class ExabytesSmsNotification extends Notification
 In your User.php model:
 
 ```php
-    public function routeNotificationForExabytes()
-    {
-        return preg_replace('/\D+/', '', '6'.$this->mobile_number);
-    }
+public function routeNotificationForExabytes()
+{
+   return preg_replace('/\D+/', '', '6'.$this->mobile_number);
+}
 ```
 
 Finally use the following snippet in your controllers to trigger the Notification
