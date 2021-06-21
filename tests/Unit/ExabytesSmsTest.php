@@ -1,6 +1,6 @@
 <?php
 
-namespace Premgthb\ExabytesSms\Unit\Tests;
+namespace Premgthb\ExabytesSms\Tests\Unit;
 
 use Illuminate\Support\Facades\Notification;
 use Premgthb\ExabytesSms\Notifications\ExabytesSmsNotification;
