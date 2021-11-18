@@ -26,7 +26,7 @@ class ExabytesSmsChannel
             ]);
 
             if ($response->body() === '-1004 = INSUFFICIENT CREDITS') {
-                Log::error("Exabytes Insufficient Credit");
+                Log::emergency("Exabytes Insufficient Credit");
             }
         }
     }
