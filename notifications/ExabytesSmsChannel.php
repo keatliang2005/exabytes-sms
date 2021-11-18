@@ -4,6 +4,7 @@ namespace Premgthb\ExabytesSms\Notifications;
 
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ExabytesSmsChannel
 {
@@ -16,8 +17,8 @@ class ExabytesSmsChannel
             $to = $notifiable->routeNotificationFor('exabytes');
 
             $response = Http::get('https://smsportal.exabytes.my/isms_send.php', [
-                'un' => env('EXABYTES_SMS_USERNAME'),
-                'pwd' => env('EXABYTES_SMS_PASSWORD'),
+                'un' => config('exabytes.username'),
+                'pwd' => config('exabytes.password'),
                 'dstno' => $to,
                 'msg' => $message,
                 'type' => 1,
@@ -25,7 +26,7 @@ class ExabytesSmsChannel
             ]);
 
             if ($response->body() === '-1004 = INSUFFICIENT CREDITS') {
-                Bugsnag::notifyError('Exabyte SMS Endpoint Failure', 'Error Code: ' . $response->getStatusCode() . ',Message: ' . $response->body());
+                Log::emergency("Exabytes Insufficient Credit");
             }
         }
     }

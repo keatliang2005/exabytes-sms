@@ -5,6 +5,11 @@ composer require premgthb/exabytes-sms
 
 # USAGE
 
+Publish config files:
+```code
+php artisan vendor:publish --provider="Premgthb\ExabytesSms\ExabytesServiceProvider"
+```
+
 .env Values:
 
 ```env
