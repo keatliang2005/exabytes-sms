@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'username' => env('EXABYTES_USERNAME'),
-    'password' => env('EXABYTES_PASSWORD'),
-    'sender_id' => env('EXABYTES_SENDER_ID')
+    'username' => env('EXABYTES_SMS_USERNAME'),
+    'password' => env('EXABYTES_SMS_PASSWORD'),
 ];
