@@ -10,24 +10,26 @@ class ExabytesSmsChannel
 {
     public function send($notifiable, Notification $notification)
     {
-        // to ensure exabyte credit only be used at staging and production
-        if (app()->environment('production') || app()->environment('staging')) {
-            
-            $message = $notification->toExabytes($notifiable);
-            $to = $notifiable->routeNotificationFor('exabytes');
-
-            $response = Http::get('https://smsportal.exabytes.my/isms_send.php', [
-                'un' => config('exabytes.username'),
-                'pwd' => config('exabytes.password'),
-                'dstno' => $to,
-                'msg' => $message,
-                'type' => 1,
-                'agreedterm' => 'YES'
-            ]);
-
-            if ($response->body() === '-1004 = INSUFFICIENT CREDITS') {
-                Log::emergency("Exabytes Insufficient Credit");
-            }
+        if (app()->runningUnitTests() || app()->environment('local')) {
+            Log::info('Exabyte SMS not send, env local or unit test');
+            return;
         }
+
+        $message = $notification->toExabytes($notifiable);
+        $to = $notifiable->routeNotificationFor('exabytes');
+
+        $response = Http::get('https://smsportal.exabytes.my/isms_send.php', [
+            'un'         => config('exabytes.username'),
+            'pwd'        => config('exabytes.password'),
+            'dstno'      => $to,
+            'msg'        => $message,
+            'type'       => 1,
+            'agreedterm' => 'YES',
+        ]);
+
+        if (! in_array($response->body(), ['2000 = SUCCESS', ''])) {
+            Log::emergency($response->body());
+        }
+        
     }
 }
